@@ -12,6 +12,9 @@
         <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
         <label for="password">Password</label>
     </div>
+    {%if err_msg%}
+    <div class="alert alert-danger">{{err_msg}}</div>
+    {%endif%}
     <button class ="btn btn-success" type="submit">Log In</button>
 </form>
 {%endblock%}

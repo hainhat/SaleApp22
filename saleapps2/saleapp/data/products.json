@@ -18,20 +18,20 @@
     "name": "Iphone 16",
     "price": 23000000,
     "image": "https://res.cloudinary.com/dy1unykph/image/upload/v1729842193/iPhone_15_Pro_Natural_1_ltf9vr.webp",
-    "category_id": 1
+    "category_id": 2
   },
   {
     "id": 4,
-    "name": "Samsung Galaxy",
+    "name": "Samsung Galaxy S23",
     "price": 23000000,
     "image": "https://res.cloudinary.com/dy1unykph/image/upload/v1729842193/iPhone_15_Pro_Natural_1_ltf9vr.webp",
     "category_id": 1
   },
   {
     "id": 5,
-    "name": "Iphone 13 ProMax",
+    "name": "Iphone 14 ProMax",
     "price": 23000000,
     "image": "https://res.cloudinary.com/dy1unykph/image/upload/v1729842193/iPhone_15_Pro_Natural_1_ltf9vr.webp",
-    "category_id": 1
+    "category_id": 2
   }
 ]
