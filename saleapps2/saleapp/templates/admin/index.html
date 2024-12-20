@@ -1,5 +1,26 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-<h1>Xin chào</h1>
+{% if current_user.is_authenticated %}
+<h1>Chào {{current_user.name}}</h1>
+{% else %}
+<h1>Trang quản trị</h1>
+<form action="/login-admin" method="post">
+    <h1 class="text-center text-info mt-1">Log In</h1>
+    <div class="form-group mb-3 mt-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" name="username"
+               pattern="[a-zA-Z0-9]*" required>
+    </div>
+
+    <div class="form-group mt-3 mb-3">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+    </div>
+    {%if err_msg%}
+    <div class="alert alert-danger">{{err_msg}}</div>
+    {%endif%}
+    <button class="btn btn-success" type="submit">Log In</button>
+</form>
+{%endif%}
 {% endblock %}

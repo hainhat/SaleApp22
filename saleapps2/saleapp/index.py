@@ -1,6 +1,6 @@
 import math
-from flask import render_template, request, redirect
-import dao
+from flask import render_template, request, redirect, session, jsonify
+import dao, utils
 from saleapps2.saleapp import app, admin, login
 from flask_login import login_user, current_user, logout_user
 import cloudinary.uploader
@@ -26,7 +26,8 @@ def product_details(id):
 @app.context_processor
 def common_attribute():
     return {
-        "categories": dao.load_categories()
+        "categories": dao.load_categories(),
+        "stats_cart": utils.count_cart(session.get('cart'))
     }
 
 
@@ -79,6 +80,42 @@ def register_user():
         else:
             err_msg = "Mật khẩu không khớp"
     return render_template("register.html", err_msg=err_msg)
+
+
+@app.route('/login-admin', methods=['post'])
+def process_login_admin():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    user = dao.auth_user(username=username, password=password)
+    if user:
+        login_user(user)
+    else:
+        err_msg = "Tài khoản hoặc mật khẩu không đúng"
+
+    return redirect("/admin")
+
+
+@app.route("/api/carts", methods=['post'])
+def add_to_cart():
+    cart = session.get("cart")
+    if not cart:
+        cart = {}
+    id = str(request.json.get('id'))
+    if id in cart:
+        cart[id]["quantity"] += 1
+    else:
+        cart[id] = {
+            "id": id,
+            "name": request.json.get('name'),
+            "price": float(request.json.get('price')),
+            "quantity": 1
+        }
+    session['cart'] = cart
+
+    return jsonify(utils.count_cart(cart))
+
+@app.route("/cart")
+def cart():
 
 
 if __name__ == '__main__':

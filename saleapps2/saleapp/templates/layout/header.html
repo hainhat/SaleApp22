@@ -35,6 +35,10 @@
                     <a class="nav-link text-primary" href="/register">&#128187; Đăng ký </a>
                 </li>
                 {%endif%}
+                <li class="nav-item">
+                    <a class="nav-link text-primary" href="/">&#128722;
+                        <span class="badge bg-danger class-counter">{{stats_cart.total_quantity}}</span></a>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" name="q" type="text" placeholder="Enter keywords">
