@@ -114,8 +114,10 @@ def add_to_cart():
 
     return jsonify(utils.count_cart(cart))
 
+
 @app.route("/cart")
 def cart():
+    return render_template('cart.html')
 
 
 if __name__ == '__main__':

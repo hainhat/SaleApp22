@@ -51,16 +51,16 @@ class User(db.Model, UserMixin):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        # c1 = Category(name="Mobile")
-        # c2 = Category(name="Tablet")
-        # c3 = Category(name="Laptop")
-        # db.session.add_all([c1, c2, c3])
-        #
-        # with open('data/products.json', encoding='utf-8') as f:
-        #     products = json.load(f)
-        #     for p in products:
-        #         prod = Product(**p)
-        #         db.session.add(prod)
+        c1 = Category(name="Mobile")
+        c2 = Category(name="Tablet")
+        c3 = Category(name="Laptop")
+        db.session.add_all([c1, c2, c3])
+
+        with open('data/products.json', encoding='utf-8') as f:
+            products = json.load(f)
+            for p in products:
+                prod = Product(**p)
+                db.session.add(prod)
 
         import hashlib
 
