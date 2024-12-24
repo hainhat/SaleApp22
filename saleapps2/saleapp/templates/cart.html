@@ -3,29 +3,37 @@
 {%block content%}
 <h3 class="text-info">Giỏ hàng</h3>
 {%if 'cart' in session%}
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Đơn giá</th>
-            <th>Số lượng</th>
-            <th></th>
-        </tr>
-        {%for c in session['cart'].values()%}
-        <tr>
-            <td>{{c.id}}</td>
-            <td>{{c.name}}</td>
-            <td>{{"{:,.0f}".format(c.price)}}</td>
-            <td>
-                <input type="number" value="{{c.quantity}}" class="form-control">
-            </td>
-            <td>
-                <button class="btn btn-danger">&times;</button>
-            </td>
-        </tr>
-        {%endfor%}
-    </table>
-    <button class="btn btn-success">Thanh toán</button>
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Đơn giá</th>
+        <th>Số lượng</th>
+        <th></th>
+    </tr>
+    {%for c in session['cart'].values()%}
+    <tr id="product{{c.id}}">
+        <td>{{c.id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{"{:,.0f}".format(c.price)}}</td>
+        <td>
+            <input type="number" onblur="updateCart({{c.id}}, this)" value="{{c.quantity}}" class="form-control">
+        </td>
+        <td>
+            <button onclick="deleteCart({{c.id}})" class="btn btn-danger">&times;</button>
+        </td>
+    </tr>
+    {%endfor%}
+</table>
+<div class="alert alert-info">
+    <h4>Tổng số lượng : <span class="class-counter">{{stats_cart.total_quantity}}</span></h4>
+    <h4>Tổng tiền thanh toán : <span class="class-amount">{{"{:,.0f}".format(stats_cart.total_amount)}}</span></h4>
+</div>
+{%if current_user.is_authenticated%}
+<button onclick="pay()" class="btn btn-success">Thanh toán</button>
+{%else%}
+<div><a href="/login?next=/cart">Đăng nhập</a> để thanh toán</div>
+{%endif%}
 {%else%}
 <div class="alert alert-info">Không có sản phẩm nào</div>
 {%endif%}
